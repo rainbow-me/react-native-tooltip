@@ -32,8 +32,10 @@ export default class ToolTip extends PureComponent {
         onShow: () => true
     };
 
+    toolTipText = React.createRef();
+
     showMenu = () => {
-        ToolTipMenu.show(findNodeHandle(this.refs.toolTipText), this.getOptionTexts(), this.props.arrowDirection);
+        ToolTipMenu.show(findNodeHandle(this.toolTipText.current), this.getOptionTexts(), this.props.arrowDirection);
         this.props.onShow();
     };
 
@@ -72,7 +74,7 @@ export default class ToolTip extends PureComponent {
         const { children, ...props } = this.props;
 
         return (
-            <RCTToolTipText ref='toolTipText' onChange={this.handleToolTipTextChange} onBlur={this.handleBlurToolTip}>
+            <RCTToolTipText ref={this.toolTipText} onChange={this.handleToolTipTextChange} onBlur={this.handleBlurToolTip}>
               <TouchableHighlight {...props}>
                 <View>
                     {children}
